@@ -1,12 +1,11 @@
 const Repository = require('./Repository.js');
-// const fileService = require('./FileService.js')
 const repository = new Repository();
+const uuid = require('uuid');
 
 class NotesService {
-   async create(post, picture) {
-      //  const fileName = fileService.saveFile(picture);
-      //  const createdPost = await Post.create({...post, picture: fileName});
-      // return createdPost;
+   async create(note) {
+      const createdNote = await repository.append({ ...note, id: uuid.v4() });
+      return createdNote;
    }
    async getAll() {
       const posts = repository.getNotes();
@@ -16,24 +15,44 @@ class NotesService {
       if (!id) {
          throw new Error('не указан ID');
       }
-      const note = await repository.getById(id);
-      console.log('Service', note);
+      const notes = repository.getNotes();
+      const findedIndex = notes.findIndex(note => note.id === id);
+      if (findedIndex < 0) {
+         throw new Error(`Запись с id = ${id} не найдена`);
+      }
+
+      const note = await repository.getByIndex(findedIndex);
       return note;
    }
-   async edit(post) {
-      if (!post._id) {
+   async edit(note, id) {
+      if (!id) {
          throw new Error('Id не указан');
       }
-      const updatedPost = await Post.findByIdAndUpdate(post._id, post, { new: true });
-      return updatedPost;
+      const notes = await repository.getNotes();
+      const findedIndex = notes.findIndex(noteItem => {
+         console.log('noteItem.id = ', noteItem.id);
+         console.log('id = ', id);
+         return noteItem.id === id;
+      });
+      console.log('findedIndex = ', findedIndex);
+      repository.edit({ ...note, id }, findedIndex);
+      // const updatedNote = await repository.edit(note);
+      return { ...note, id };
    }
    async delete(id) {
       if (!id) {
          throw new Error('Id не указан');
       }
-      const post = await Post.findByIdAndDelete(id);
-      return post;
+      const notes = repository.getNotes();
+
+      const deletedIndex = notes.findIndex(note => note.id === id);
+      if (deletedIndex < 0) {
+         throw new Error(`Запись с id = ${id} не найдена`);
+      }
+      const deletedNote = repository.delete(deletedIndex);
+      // const post = await repository.delete(id);
+      return deletedNote;
    }
 }
 
-module.exports = new NotesService();
+module.exports = NotesService;

@@ -1,13 +1,5 @@
-// const mongoose = require('mongoose');
 const uuid = require('uuid');
 const options = { month: 'long', day: 'numeric', year: 'numeric' };
-// const Post = new mongoose.Schema({
-//    author: { type: String, required: true },
-//    title: { type: String, required: true },
-//    content: { type: String, required: true },
-//    picture: { type: String },
-// });
-// module.exports = mongoose.model('Post', Post);
 
 class Repository {
    constructor() {
@@ -62,21 +54,24 @@ class Repository {
          },
       ];
    }
+   append(note) {
+      if (!note) {
+         throw new Error('Note must not to be null or undefined value')
+      }
+      this.notes.push(note);
+      return note;
+   }
    getNotes() {
       return this.notes;
    }
-   getById(id) {
-      // if (!id) {
-      //    throw new Error()
-      // }
-      // console.log('id =', this.notes);
-      const index = this.notes.findIndex(note => {
-         console.log(note.id);
-         return note.id === id;
-      });
-      console.log('index = ', index);
-      console.log('index = ', this.notes[index]);
+   edit(note, index) {
+      this.notes[index] = { ...note };
+   }
+   getByIndex(index) {
       return this.notes[index];
+   }
+   delete(index) {
+      return (this.notes.splice(index, 1))[0];
    }
 }
 
