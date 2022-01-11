@@ -59,6 +59,8 @@ class Repository {
             dates: '3/1/2022, 5/3/2022',
          },
       ];
+
+      this.archivedNotes = []
    }
    append(note) {
       if (!note) {
@@ -78,6 +80,12 @@ class Repository {
    }
    delete(index) {
       return (this.notes.splice(index, 1))[0];
+   }
+   appendArchive(archiveNote) {
+      this.archivedNotes.push(archiveNote);
+   }
+   getArchivedNotes() {
+      return this.archivedNotes;
    }
 }
 

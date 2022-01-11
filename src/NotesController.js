@@ -54,6 +54,22 @@ class NotesController {
          res.status(500).json(error.message);
       }
    }
+   async archiveNote(req, res) {
+      try {
+         const note = await notesService.archiveNote(req.params.id);
+         return res.json(note);
+      } catch (error) {
+         res.status(500).json(error.message);
+      }
+   }
+   async getArchivedNotes(req, res) {
+      try {
+         const archivedNotes = await notesService.getArchivedNotes();
+         return res.json(archivedNotes);
+      } catch (error) {
+         res.status(500).json(error);
+      }
+   }
 }
 
 module.exports = new NotesController();
