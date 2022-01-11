@@ -1,5 +1,5 @@
 const express = require('express');
-const router = require('./router');
+const router = require('./routes/router');
 
 const PORT = 5000;
 const app = express();

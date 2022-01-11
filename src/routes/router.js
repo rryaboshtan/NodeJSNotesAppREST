@@ -1,5 +1,5 @@
 const Router = require('express');
-const notesController = require('./NotesController')
+const notesController = require('../controllers/NotesController')
 
 const router = new Router();
 
@@ -10,8 +10,6 @@ router.get('/notes/:id', notesController.getOne);
 router.put('/notes/:id', notesController.edit);
 router.delete('/notes/:id', notesController.delete);
 router.delete('/archivenote/:id', notesController.archiveNote);
-// router.delete('/unarchivenote/:id', notesController.unarchiveNote);
 router.get('/archivednotes', notesController.getArchivedNotes);
-
 
 module.exports = router;
