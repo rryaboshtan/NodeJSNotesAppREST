@@ -1,4 +1,4 @@
-const Repository = require('./Repository.js');
+const Repository = require('./Repository/NotesRepository.js');
 const repository = new Repository();
 const uuid = require('uuid');
 
@@ -8,8 +8,19 @@ class NotesService {
       return createdNote;
    }
    async getAll() {
-      const posts = repository.getNotes();
-      return posts;
+      const notes = repository.getNotes();
+
+      //  const notes = repository.getNotes();
+      const categories = notes.map(note => note.category);
+      const categoriesMap = {};
+      for (let i = 0; i < categories.length; i++) {
+         const category = categories[i];
+         categoriesMap[category] = categoriesMap[category] ? categoriesMap[category] + 1 : 1;
+      }
+      // console.log(categoriesMap);
+      // const set = new Set(categories);
+      // console.log('set = ', set);
+      return notes;
    }
    async getOne(id) {
       if (!id) {
@@ -24,6 +35,22 @@ class NotesService {
       const note = await repository.getByIndex(findedIndex);
       return note;
    }
+   async getStats() {
+      const notes = repository.getNotes();
+
+      let categories = notes.map(note => note.category);
+      
+      const categoriesMap = {};
+      for (let category of categories) {
+         categoriesMap[category] =  categoriesMap[category] ? categoriesMap[category] + 1 : 1;
+      }
+      const categoriesNames = Object.keys(categoriesMap);
+      for (let category of categoriesNames) {
+         categoriesMap[category] = { active: categoriesMap[category] };
+      }
+
+      return categoriesMap;
+   }
    async edit(note, id) {
       if (!id) {
          throw new Error('Id не указан');
@@ -36,7 +63,6 @@ class NotesService {
       });
       console.log('findedIndex = ', findedIndex);
       repository.edit({ ...note, id }, findedIndex);
-      // const updatedNote = await repository.edit(note);
       return { ...note, id };
    }
    async delete(id) {

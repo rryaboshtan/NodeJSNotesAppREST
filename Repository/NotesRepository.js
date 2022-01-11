@@ -7,6 +7,7 @@ class Repository {
          {
             id: uuid.v4(),
             name: 'Shopping list',
+            age: 21,
             created: new Date().toLocaleDateString('en-US', options),
             category: 'Task',
             content: 'tomatoes, bread',
@@ -15,6 +16,7 @@ class Repository {
          {
             id: uuid.v4(),
             name: 'The theory of evolution',
+            age: 22,
             created: new Date().toLocaleDateString('en-US', options),
             category: 'Random Thought',
             content: 'The evolution...',
@@ -23,6 +25,7 @@ class Repository {
          {
             id: uuid.v4(),
             name: 'New feature',
+            age: 23,
             created: new Date().toLocaleDateString('en-US', options),
             category: 'Idea',
             content: 'Implement new...',
@@ -31,6 +34,7 @@ class Repository {
          {
             id: uuid.v4(),
             name: 'William Gaddis',
+            age: 24,
             created: new Date().toLocaleDateString('en-US', options),
             category: 'Task',
             content: "Power doesn't co",
@@ -39,6 +43,7 @@ class Repository {
          {
             id: uuid.v4(),
             name: 'Books',
+            age: 24,
             created: new Date().toLocaleDateString('en-US', options),
             category: 'Task',
             content: 'The Lean Startup',
@@ -47,6 +52,7 @@ class Repository {
          {
             id: uuid.v4(),
             name: 'Other Books',
+            age: 25,
             created: new Date().toLocaleDateString('en-US', options),
             category: 'Idea',
             content: 'English learning',

@@ -28,6 +28,14 @@ class NotesController {
          res.status(500).json(error);
       }
    }
+   async getStats(req, res) {
+      try {
+         const stats = await notesService.getStats();
+         return res.json(stats);
+      } catch (error) {
+         res.status(500).json(error.message);
+      }
+   }
    async edit(req, res) {
       try {
          const updatedNote = await notesService.edit(req.body, req.params.id);
