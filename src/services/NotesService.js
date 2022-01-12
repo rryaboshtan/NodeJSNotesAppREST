@@ -1,4 +1,4 @@
-const Repository = require('../repositories/NotesRepository.js');
+const Repository = require('../repositories/NotesRepository');
 const { object, string, number, date } = require('yup');
 const uuid = require('uuid');
 

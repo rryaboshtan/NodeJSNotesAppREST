@@ -1,4 +1,4 @@
-const NotesService = require('../services/NotesService.js');
+const NotesService = require('../services/NotesService');
 const notesService = new NotesService();
 
 class NotesController {
